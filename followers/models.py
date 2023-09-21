@@ -24,7 +24,7 @@ class PatientTherapistConnection(models.Model):
 		unique_together = ('therapist', 'patient')
 
 	def __str__(self):
-		return f'Connection between therapist {self.therapis} and patient {self.patient}'
+		return f'Connection between therapist {self.therapist} and patient {self.patient}'
 
 
 
