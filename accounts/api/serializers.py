@@ -19,9 +19,11 @@ class PatientRegistrationSerializer(serializers.ModelSerializer):
 	password = serializers.CharField(write_only=True, required=True, validators=[validate_password,])
 	password2 = serializers.CharField(write_only=True, required=True)
 
+	nickname = serializers.CharField(write_only=True)
+
 	class Meta:
 		model = CustomUser
-		fields = ['email', 'password', 'password2',]
+		fields = ['email', 'password', 'password2','nickname',]
 
 	def validate(self, attrs):
 		if attrs['password'] != attrs['password2']:
@@ -34,7 +36,7 @@ class PatientRegistrationSerializer(serializers.ModelSerializer):
 		)
 
 		# Create patient
-		Patient.objects.create(user=user, nickname=validated_data['email'].split('@')[0])
+		Patient.objects.create(user=user, nickname=validated_data['nickname'])
 
 		user.set_password(validated_data['password'])
 		user.save()
