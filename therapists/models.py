@@ -10,7 +10,6 @@ class Therapist(models.Model):
 	user 		= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	first_name 	= models.CharField(max_length=120)
 	last_name 	= models.CharField(max_length=120)
-	slug 		= models.SlugField(unique=True, blank=True)
 
 	#clinic optional
 
@@ -21,8 +20,3 @@ class Therapist(models.Model):
 	def __str__(self):
 		return f'{self.first_name} {self.last_name}'
 
-	def save(self, *args, **kwargs):
-		if not self.slug:
-			full_name = f'{self.first_name} {self.last_name}'
-			self.slug = slugify(full_name)
-		super(Therapist, self).save(*args, **kwargs)
