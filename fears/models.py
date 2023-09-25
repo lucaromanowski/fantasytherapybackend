@@ -26,7 +26,7 @@ class Fear(models.Model):
 
 class FearIntensity(models.Model):
 	'''
-	Fear intensity model. Levels: low, medium, high. Basic way of measuring fear level. 
+	Fear intensity model. Levels: low, medium, high. Basic way of measuring fear level at given time. 
 	'''
 
 	INTENSITY_LEVELS = [
@@ -39,6 +39,8 @@ class FearIntensity(models.Model):
 	intensity_level = models.CharField(max_length=2, choices=INTENSITY_LEVELS, default='10')
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True) 
+
+
 
 
 	
