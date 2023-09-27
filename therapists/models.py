@@ -11,8 +11,6 @@ class Therapist(models.Model):
 	first_name 	= models.CharField(max_length=120)
 	last_name 	= models.CharField(max_length=120)
 
-	#clinic optional
-
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True) 
 

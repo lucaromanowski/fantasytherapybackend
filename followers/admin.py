@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import PatientTherapistConnection
+from .models import PatientTherapistRelationship
 
-class PatientTherapistConnectionAdmin(admin.ModelAdmin):
+class PatientTherapistRelationshipAdmin(admin.ModelAdmin):
 	list_display = ['therapist', 'patient', 'isPatientAccepting', 'created', 'updated',]
 
-admin.site.register(PatientTherapistConnection, PatientTherapistConnectionAdmin)
+admin.site.register(PatientTherapistRelationship, PatientTherapistRelationshipAdmin)

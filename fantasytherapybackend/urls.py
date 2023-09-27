@@ -29,4 +29,5 @@ urlpatterns = [
     # API
     path('api/fears/', include('fears.api.urls')),
     path('api/accounts/', include('accounts.api.urls')),
+    path('api/followers/', include('followers.api.urls')),
 ]

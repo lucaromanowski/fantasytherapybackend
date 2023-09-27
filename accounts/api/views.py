@@ -17,14 +17,6 @@ class PatientRegistrationAPIView(CreateAPIView):
 	serializer_class = PatientRegistrationSerializer
 	queryset = CustomUser.objects.all()
 
-	def create(self, request, *args, **kwargs):
-		serializer = self.get_serializer(data=request.data)
-		serializer.is_valid(raise_exception=True)
-		self.perform_create(serializer)
-		headers = self.get_success_headers(serializer.data)		
-		return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-
-
 class TherapistRegistrationAPIView(CreateAPIView):
 	'''
 	This view creates and combine custom user and therapist instances.
@@ -33,10 +25,3 @@ class TherapistRegistrationAPIView(CreateAPIView):
 	permissions_classes = (AllowAny,)
 	serializer_class = TherapistRegistrationSerializer
 	queryset = CustomUser.objects.all()
-
-	def create(self, request, *args, **kwargs):
-		serializer = self.get_serializer(data=request.data)
-		serializer.is_valid(raise_exception=True)
-		self.perform_create(serializer)
-		headers = self.get_success_headers(serializer.data)		
-		return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

@@ -65,8 +65,7 @@ class TherapistRegistrationSerializer(serializers.ModelSerializer):
 			email = validated_data['email'],
 		)
 
-
-		# Create patient
+		# Create therapist
 		Therapist.objects.create(user=user, first_name=validated_data['first_name'], last_name=validated_data['last_name'])
 
 		user.set_password(validated_data['password'])

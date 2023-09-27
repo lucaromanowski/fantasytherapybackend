@@ -3,9 +3,9 @@ from django.db import models
 from therapists.models import Therapist
 from patients.models import Patient
 
-class PatientTherapistConnection(models.Model):
+class PatientTherapistRelationship(models.Model):
 	'''
-	This model represents therapist-patient connection. 
+	This model represents therapist-patient relationship. 
 	Only therapist can initiate it.
 	Patient accepts it.
 	'''

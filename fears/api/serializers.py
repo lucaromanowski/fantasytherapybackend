@@ -19,6 +19,6 @@ class FearSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Fear
-		fields = ['fear_intensities', 'user', 'title', 'description', 'created', 'updated',]
+		fields = ['id', 'fear_intensities', 'user', 'title', 'description', 'created', 'updated',]
 
 
