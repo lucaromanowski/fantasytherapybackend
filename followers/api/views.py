@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from patients.models import Patient
-from .permissions import IsTherapistPermission
+from utils.permissions import IsTherapistPermission
 from .serializers import CreateTherapistToPatientRelationshipSerializer
 
 

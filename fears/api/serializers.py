@@ -15,12 +15,19 @@ class FearSerializer(serializers.ModelSerializer):
 	Fear serializer.
 	'''
 	user = CustomUserSerializer()
+	#fear_intensities = FearIntensitySerializer(many=True, read_only=True)
+
+	class Meta:
+		model = Fear
+		fields = ['id', 'user', 'title', 'created', 'updated',]
+
+
+class FearDetailSerializer(serializers.ModelSerializer):
 	fear_intensities = FearIntensitySerializer(many=True, read_only=True)
 
 	class Meta:
 		model = Fear
-		fields = ['id', 'fear_intensities', 'user', 'title', 'description', 'created', 'updated',]
-
+		fields = ['id', 'user', 'fear_intensities','title', 'description', 'created', 'updated']
 
 class FearCreateSerializer(serializers.ModelSerializer):
 	user = serializers.HiddenField(default=serializers.CurrentUserDefault())

@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     'accounts',
     'fears',
     'followers',
+    'monsters',
     'patients',
     'therapists',
+    
 ]
 
 REST_FRAMEWORK = {

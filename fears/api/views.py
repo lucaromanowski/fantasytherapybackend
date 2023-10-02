@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from .serializers import FearSerializer, FearCreateSerializer
+from .serializers import FearSerializer, FearDetailSerializer, FearCreateSerializer
 from ..models import Fear
 
 class FearViewSet(ModelViewSet):
@@ -17,6 +17,7 @@ class FearViewSet(ModelViewSet):
 	permission_classes = [IsAuthenticated,]
 	serializer_action_classes = {
 		'list' : FearSerializer,
+		'retrieve': FearDetailSerializer,
 		'create' : FearCreateSerializer,
 	} 
 

@@ -10,7 +10,7 @@ class Therapist(models.Model):
 	user 		= models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	first_name 	= models.CharField(max_length=120)
 	last_name 	= models.CharField(max_length=120)
-
+	
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True) 
 
