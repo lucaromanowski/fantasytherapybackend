@@ -17,20 +17,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token  
-
+from accounts.api.views import CustomAuthToken
 
 urlpatterns = [
     path('badmin/', admin.site.urls),
 
     path('api-auth/', include('rest_framework.urls')), # rest framework browsable login and logout api
 
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), 
+    path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'), 
 
     # API
     path('api/fears/', include('fears.api.urls')),
     path('api/accounts/', include('accounts.api.urls')),
     path('api/followers/', include('followers.api.urls')),
     path('api/monsters/', include('monsters.api.urls')),
+    path('api/patients/', include('patients.api.urls')),
 ]
 
 
