@@ -6,8 +6,10 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from django.core.exceptions import ObjectDoesNotExist
 from .serializers import PatientRegistrationSerializer, TherapistRegistrationSerializer
 from ..models import CustomUser
+
 
 
 class PatientRegistrationAPIView(CreateAPIView):
@@ -28,6 +30,31 @@ class TherapistRegistrationAPIView(CreateAPIView):
 	serializer_class = TherapistRegistrationSerializer
 	queryset = CustomUser.objects.all()
 
+def get_user_type(current_user):
+	'''
+	This function returns a dictionary where keys are user types and values are booleans. 
+	'''
+
+	user_type = {
+		'is_patient': False,
+		'is_therapist': False,
+	}
+
+	# Check if user is a therapis 
+	try:
+		# Attempt to access the related object
+		related_object = current_user.therapist
+
+		# User is therapist 
+		user_type['is_therapist'] = True
+		user_type['is_patient'] = False
+
+	except ObjectDoesNotExist:
+		# Handle the case where the related object does not exist
+		user_type['is_therapist'] = False
+		user_type['is_patient'] = True
+
+	return user_type
 
 class CustomAuthToken(ObtainAuthToken):
 	'''
@@ -41,7 +68,8 @@ class CustomAuthToken(ObtainAuthToken):
 		token, created = Token.objects.get_or_create(user=user)
 		return Response({
 			'token': token.key,
-			'user_id': user.pk,
+			# 'user_id': user.pk,
+			'user_type': get_user_type(user),
 		})
 
 
