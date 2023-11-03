@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import MonsterCreateSerializer
 from utils.permissions import IsTherapistPermission, IsTherapistOfPatientPermission
 
-class GenerateMonsterAPIView(CreateAPIView):
+class CreateMonsterAPIView(CreateAPIView):
     '''
     Only therapist can spawn a monster. Only for his/her patients.
     '''

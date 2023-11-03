@@ -16,3 +16,12 @@ class PatientPrivateDetailsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Patient
 		fields = ('nickname','created')
+
+
+class TherapistPatientsSerializer(serializers.ModelSerializer):
+	'''
+	This serializer shows details of patient to his therapist.
+	'''
+	class Meta:
+		model = Patient
+		fields = ('pk', 'nickname', 'created')

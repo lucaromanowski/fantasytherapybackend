@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import GenerateMonsterAPIView
+from .views import CreateMonsterAPIView
 
 app_name='monsters'
 
 urlpatterns = [
-    path('generate-monster/', GenerateMonsterAPIView.as_view()),
+    path('create-monster/', CreateMonsterAPIView.as_view()),
 ]
