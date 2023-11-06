@@ -6,6 +6,20 @@ from django.core.exceptions import ObjectDoesNotExist
 from therapists.models import Therapist
 from patients.models import Patient
 
+class IsPatientPermission(BasePermission):
+	'''
+	Only therapist permission.
+	'''
+	
+	def has_permission(self, request, view):
+		try:
+			# Attempt to access the related object
+			related_object = request.user.patient 
+		except ObjectDoesNotExist:
+			# Handle the case where the related object does not exist
+			return False
+		return True
+
 
 class IsTherapistPermission(BasePermission):
 	'''
