@@ -30,12 +30,12 @@ class TherapistRegistrationAPIView(CreateAPIView):
 	serializer_class = TherapistRegistrationSerializer
 	queryset = CustomUser.objects.all()
 
-def get_user_type(current_user):
+def get_user_role(current_user):
 	'''
 	This function returns a dictionary where keys are user types and values are booleans. 
 	'''
 
-	user_type = {
+	user_role = {
 		'is_patient': False,
 		'is_therapist': False,
 	}
@@ -46,15 +46,15 @@ def get_user_type(current_user):
 		related_object = current_user.therapist
 
 		# User is therapist 
-		user_type['is_therapist'] = True
-		user_type['is_patient'] = False
+		user_role['is_therapist'] = True
+		user_role['is_patient'] = False
 
 	except ObjectDoesNotExist:
 		# Handle the case where the related object does not exist
-		user_type['is_therapist'] = False
-		user_type['is_patient'] = True
+		user_role['is_therapist'] = False
+		user_role['is_patient'] = True
 
-	return user_type
+	return user_role
 
 class CustomAuthToken(ObtainAuthToken):
 	'''
@@ -69,7 +69,7 @@ class CustomAuthToken(ObtainAuthToken):
 		return Response({
 			'token': token.key,
 			# 'user_id': user.pk,
-			'user_type': get_user_type(user),
+			'user_role': get_user_role(user),
 		})
 
 

@@ -56,6 +56,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',  
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 2,
 }
 
 MIDDLEWARE = [
@@ -70,7 +72,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://localhost:3000', # Old react local server
+    'http://localhost:5173', # Vue local server
 ]
 
 ROOT_URLCONF = 'fantasytherapybackend.urls'

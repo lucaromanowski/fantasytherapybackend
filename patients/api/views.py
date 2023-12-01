@@ -1,9 +1,10 @@
 
 from .serializers import PatientPrivateDetailsSerializer , TherapistPatientsSerializer
+# from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from patients.models import Patient
-from utils.permissions import IsTherapistPermission, IsPatientPermission
+from utils.permissions import IsTherapistPermission, IsPatientPermission, IsTherapistOfPatientPermission
 
 
 class PatientPrivateDetailsAPIView(RetrieveAPIView):
@@ -25,13 +26,23 @@ class TherapistPatientsListAPIView(ListAPIView):
     serializer_class = TherapistPatientsSerializer
     permission_classes = [IsAuthenticated, IsTherapistPermission]
     queryset = Patient.objects.all()
+    # pagination_class = PageNumberPagination
+    # page_size = 10
 
     def get_queryset(self):
         # Return patients of logged in therapist, only accepted by patient
         return super().get_queryset().filter(follower__therapist=self.request.user.therapist, follower__isPatientAccepting=True)
-    
 
 
+    def paginated_queryset(self, queryset, request, view=None):
+        if 'no_page' in request.query_params:
+            return None
+        return super().paginate_queryset(queryset, request, view)
+
+class TherapistPatientDetailsAPIView(RetrieveAPIView):
+    serializer_class = TherapistPatientsSerializer
+    permission_classes = [IsAuthenticated, IsTherapistPermission, IsTherapistOfPatientPermission]
+    queryset = Patient.objects.all()
 
 
 

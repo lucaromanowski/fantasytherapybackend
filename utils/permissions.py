@@ -36,16 +36,16 @@ class IsTherapistPermission(BasePermission):
 		return True
 
 class IsTherapistOfPatientPermission(BasePermission):
-    '''
-    This permission checks if the patient has a relationship with a therapist
+	'''
+	This permission checks if the patient has a relationship with a therapist
 	anf if the patien accepted this relationship.
-    '''
-    def has_permission(self, request, view):
+	'''
+	def has_permission(self, request, view):
 		# Get Patient and Therapist
-        therapist = request.user.therapist
-        patient = get_object_or_404(Patient, pk=request.data['patient'])
+		therapist = request.user.therapist
+		patient = get_object_or_404(Patient, pk=view.kwargs['pk'])
 
-        # Chech if the Therapist is taking care of the Patient and if the Patient accepted it.
-        if therapist.following.filter(patient=patient).exists() and therapist.following.filter(patient=patient)[0].isPatientAccepting:			
-            return True
-        return False
+		# Chech if the Therapist is taking care of the Patient and if the Patient accepted it.
+		if therapist.following.filter(patient=patient).exists() and therapist.following.filter(patient=patient)[0].isPatientAccepting:			
+			return True
+		return False

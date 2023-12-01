@@ -15,7 +15,7 @@ class PatientPrivateDetailsSerializer(serializers.ModelSerializer):
 	'''
 	class Meta:
 		model = Patient
-		fields = ('nickname','created')
+		fields = ('nickname','first_name', 'last_name', 'created')
 
 
 class TherapistPatientsSerializer(serializers.ModelSerializer):
@@ -24,4 +24,4 @@ class TherapistPatientsSerializer(serializers.ModelSerializer):
 	'''
 	class Meta:
 		model = Patient
-		fields = ('pk', 'nickname', 'created')
+		fields = ('pk', 'nickname', 'first_name', 'last_name', 'created')
