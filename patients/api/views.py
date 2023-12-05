@@ -34,10 +34,11 @@ class TherapistPatientsListAPIView(ListAPIView):
         return super().get_queryset().filter(follower__therapist=self.request.user.therapist, follower__isPatientAccepting=True)
 
 
-    def paginated_queryset(self, queryset, request, view=None):
-        if 'no_page' in request.query_params:
-            return None
-        return super().paginate_queryset(queryset, request, view)
+    def paginate_queryset(self, queryset):
+        if 'no_pagination' in self.request.query_params:
+            return None        
+        return self.paginator.paginate_queryset(queryset, self.request, view=self)
+    
 
 class TherapistPatientDetailsAPIView(RetrieveAPIView):
     serializer_class = TherapistPatientsSerializer
