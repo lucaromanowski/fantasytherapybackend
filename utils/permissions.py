@@ -43,7 +43,16 @@ class IsTherapistOfPatientPermission(BasePermission):
 	def has_permission(self, request, view):
 		# Get Patient and Therapist
 		therapist = request.user.therapist
-		patient = get_object_or_404(Patient, pk=view.kwargs['pk'])
+
+		# Patient pk was sent in the url as a lookup kwarg e.g. 'https://(...)/something/anotherthing/16' - mothod GET
+		if view.kwargs.get('pk') != None:
+			patient = get_object_or_404(Patient, pk=view.kwargs.get('pk'))
+		
+		# Patient pk was sent as patient property in request.data -  method POST
+		elif request.data.get('patient') != None:
+			patient = get_object_or_404(Patient, pk=request.data.get('patient'))
+		else:
+			patient = get_object_or_404(Patient, pk=view.kwargs.get('pk'))
 
 		# Chech if the Therapist is taking care of the Patient and if the Patient accepted it.
 		if therapist.following.filter(patient=patient).exists() and therapist.following.filter(patient=patient)[0].isPatientAccepting:			

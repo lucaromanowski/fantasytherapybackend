@@ -22,6 +22,12 @@ class TherapistPatientsSerializer(serializers.ModelSerializer):
 	'''
 	This serializer shows details of patient to his therapist.
 	'''
+
+	full_name_and_nickname = serializers.SerializerMethodField()
+
 	class Meta:
 		model = Patient
-		fields = ('pk', 'nickname', 'first_name', 'last_name', 'created')
+		fields = ('pk', 'nickname', 'first_name', 'last_name', 'created', 'full_name_and_nickname')
+
+	def get_full_name_and_nickname(self, obj):
+		return f"{obj.first_name} {obj.last_name} - {obj.nickname}"
